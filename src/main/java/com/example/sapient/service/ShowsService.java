@@ -15,6 +15,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -75,6 +76,7 @@ public class ShowsService {
                 .address(theatre.getAddress())
                 .theatreSeatResponseList(buildTheatreSeatResponse(theatre.getTheatreSeats())).build();
     }
+    @Transactional
     public ShowsResponse addShow(ShowRequest showRequest) {
         Shows show = buildShow(showRequest);
         return buildShowResponse(showsRepository.save(show));
@@ -102,6 +104,7 @@ public class ShowsService {
                 .build();
     }
 
+    @Transactional
     public void deleteShow(UUID showId) {
         showsRepository.deleteById(showId);
     }

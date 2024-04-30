@@ -6,6 +6,7 @@ import com.example.sapient.model.request.MovieRequest;
 import com.example.sapient.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class MovieService {
         return movieResponses;
     }
 
+    @Transactional
     public MovieResponse addMovie(MovieRequest movieRequest) {
         Movie movie = buildMovie(movieRequest);
         return buildMovieResponse(movieRepository.save(movie));
@@ -53,6 +55,7 @@ public class MovieService {
                 .build();
     }
 
+    @Transactional
     public void deleteMovie(UUID movieId) {
         movieRepository.deleteById(movieId);
     }
